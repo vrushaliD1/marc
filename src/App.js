@@ -16,53 +16,53 @@ import { useEffect, useState } from "react";
 import { abi, tokenContractAddress, tokens } from "./components/Data";
 
 function App() {
-  const [userAddress,setuserAddress] = useState('');
-  const [shouldRedirect,setRedirect]=useState(false);
-  useEffect(()=>{
-      (async()=>{
-          const ethereum = window.ethereum;
-          if (typeof ethereum !== 'undefined') {
-              console.log('MetaMask is installed!');
-              let	 userAddress = ethereum.selectedAddress;
-              setuserAddress(userAddress);
-          }else{
-              alert("Install Metamask Extenions!")
+  const [userAddress, setuserAddress] = useState('');
+  const [shouldRedirect, setRedirect] = useState(false);
+  useEffect(() => {
+    (async () => {
+      const ethereum = window.ethereum;
+      if (typeof ethereum !== 'undefined') {
+        console.log('MetaMask is installed!');
+        let userAddress = ethereum.selectedAddress;
+        setuserAddress(userAddress);
+      } else {
+        alert("Install Metamask Extenions!")
+      }
+      if (ethereum && userAddress) {
+        let myWeb3 = new Web3(window.ethereum);
+        let contract = await new myWeb3.eth.Contract(abi, tokenContractAddress);
+        let balances = [];
+        for (let row of tokens) {
+          let temp = await contract.methods.balanceOf(userAddress, row.token).call()
+          if (parseInt(temp) > 0) {
+            balances.push(parseInt(temp));
           }
-          if(ethereum && userAddress){
-              let myWeb3 = new Web3(window.ethereum); 
-              let contract = await new myWeb3.eth.Contract(abi,tokenContractAddress);
-              let balances = [];
-              for(let row of tokens){
-                let temp =  await contract.methods.balanceOf(userAddress,row.token).call()
-                if(parseInt(temp)> 0){
-                  balances.push(parseInt(temp));
-                }
-              }
-              const shouldRedirect = balances.filter(t=>t> 0)?.length > 0;
-              setRedirect(shouldRedirect)
-          }else{
-              const accounts =  await ethereum.request({ method: 'eth_requestAccounts' });
-              let address = ethereum.selectedAddress;
-              setuserAddress(address)
-          }
-      })()
-  },[])
+        }
+        const shouldRedirect = balances.filter(t => t > 0)?.length > 0;
+        setRedirect(shouldRedirect)
+      } else if (ethereum) {
+        const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+        let address = ethereum.selectedAddress;
+        setuserAddress(address)
+      }
+    })()
+  }, [])
   return (
     <Provider store={store}>
       <Router>
-          <Container fluid >
-            <Switch>
-              <Route path="/game/:id" component={GameRoom}>
-              </Route>
-              <Route path="/answers">
-                <AnserPage/>
-                </Route>
+        <Container fluid >
+          <Switch>
+            <Route path="/game/:id" component={GameRoom}>
+            </Route>
+            <Route path="/answers">
+              <AnserPage />
+            </Route>
             <Route path="/">
-              <UserLanding shouldRedirect={shouldRedirect}/>
+              <UserLanding shouldRedirect={shouldRedirect} />
             </Route>
           </Switch>
         </Container>
-    </Router>
+      </Router>
     </Provider>
   );
 }
