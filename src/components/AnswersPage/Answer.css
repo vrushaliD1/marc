@@ -1,0 +1,21 @@
+
+.row{
+    display: flex;
+}
+.result{
+    padding: 3rem;
+    text-align: center;
+}
+.failed{
+    background-color: red;
+    padding: 1rem;
+}
+
+.passed{
+    background-color: green;
+    padding: 1rem;
+}
+
+.h1{
+    color: white !important;
+}
