@@ -11,6 +11,7 @@ import Web3 from 'web3';
 
 function Question(props) {
   const { chapter, saveUserResponse, global, submitAnswer, chapters } = props;
+  console.log(props);
   const { questions = [], chapterId } = chapter;
   const history = useHistory()
   const { user } = global;
@@ -26,8 +27,6 @@ function Question(props) {
       setOwned(curChapter.owned)
     }
   }, [curChapter])
-
-  console.log(owned);
   const { userAddress } = user;
   const handleChange = (e, q) => {
     const { questionId, value } = e;
@@ -41,11 +40,11 @@ function Question(props) {
   }, [questions])
 
   const handleSubmit = async () => {
-    const web3 = new Web3(Web3.givenProvider);
-    const contract = new web3.eth.Contract(abi, tokenContractAddress);
+    // const web3 = new Web3(Web3.givenProvider);
+    // const contract = new web3.eth.Contract(abi, tokenContractAddress);
     if (owned === false) {
-      const result1 = await contract.methods.setApprovalForAll(tokenContractAddress, true).send({ from: userAddress });
-      const result2 = await contract.methods.safeTransferFrom(userAddress, client_token, token, 1, 0).call();
+      // const result1 = await contract.methods.setApprovalForAll(tokenContractAddress, true).send({ from: userAddress });
+      // const result2 = await contract.methods.safeTransferFrom(userAddress, client_token, token, 1, 0).call();
     }
     submitAnswer({ user, chapter });
     history.push("/answers");

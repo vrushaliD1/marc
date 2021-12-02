@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Grid, GridColumn, Progress } from 'semantic-ui-react';
 import spacetime from 'spacetime';
-import Web3 from 'web3';
+import Web3 from 'web3'
 import { abi, tokenContractAddress,client_token } from '../../Data';
 
 function TokenUnit(props) {
@@ -48,8 +48,8 @@ function TokenUnit(props) {
         return ''
     }
     const handlePlay = async(e)=>{
-        const web3 = new Web3(Web3.givenProvider);
-        const contract = new web3.eth.Contract(abi,tokenContractAddress);
+        // const web3 = new Web3(Web3.givenProvider);
+        // const contract = new web3.eth.Contract(abi,tokenContractAddress);
         try{
             // const result1 = await contract.methods.setApprovalForAll(tokenContractAddress,true).send({from:userAddress});
             // const result2 = await contract.methods.safeTransferFrom(userAddress,client_token,token,1,0).call();

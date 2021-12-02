@@ -12,7 +12,7 @@ import store from "./store/store";
 import { Provider } from 'react-redux'
 import AnserPage from "./components/AnswersPage/AnwserPage";
 import Web3 from "web3";
-import { useEffect, useState } from "react";
+import React , { useEffect, useState } from "react";
 import { abi, tokenContractAddress, tokens } from "./components/Data";
 
 function App() {

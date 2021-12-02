@@ -1,6 +1,6 @@
 import Question from "../question/Question";
 import logo from '../../assets/collector-logo.png'
-
+import React from "react";
 
 
 function Sidebar() {

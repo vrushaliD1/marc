@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import  React , { useEffect, useRef } from "react";
 import { Container } from "semantic-ui-react";
 function ThreedViewer() {
   const container = useRef(null);
