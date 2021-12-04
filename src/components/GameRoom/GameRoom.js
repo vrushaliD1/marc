@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Container } from 'semantic-ui-react'
 import { LOAD_QUESTIONS } from '../../store/chapter/constants'
+import { LOAD_OPTIONS } from "../../store/options/constants";
 import Sidebar from '../sidebar/sidebar'
 import ThreedViewer from '../ThreedViewer/ThreedViewer'
 import { LOAD_USER } from '../../store/constants'
 function GameRoom(props) {
-  const { match, fetchQuestion, global, fetchUser } = props;
+  const { match, fetchQuestion,fetchOption, global, fetchUser } = props;
   const { user, isloading } = global;
   const chapterId = match.params.id;
   const [userAddress, setuserAddress] = useState(null);
@@ -14,19 +15,20 @@ function GameRoom(props) {
     (async () => {
       await metaMaskInit();
       fetchQuestion({ chapterId, userId: user?._id });
+      fetchOption();
     })()
   }, [])
 
   useEffect(() => {
-    if (userAddress && userAddress !== '') {
+    if (!userAddress && userAddress !== '') {
       fetchUser(userAddress);
+
     }
   }, [userAddress])
 
   const metaMaskInit = async () => {
     const ethereum = window.ethereum;
     if (typeof ethereum !== 'undefined') {
-      console.log('MetaMask is installed!');
       let userAddress = ethereum.selectedAddress;
       setuserAddress(userAddress);
     } else {
@@ -63,13 +65,14 @@ function GameRoom(props) {
 const mapStateToProps = (state) => {
   return {
     questions: state.questions,
-    global: state.global
-  }
+    global: state.global,
+  };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchQuestion: (data) => dispatch({ type: LOAD_QUESTIONS, payload: data }),
-    fetchUser: (data) => dispatch({ type: LOAD_USER, payload: data })
+    fetchUser: (data) => dispatch({ type: LOAD_USER, payload: data }),
+    fetchOption:()=> dispatch({type : LOAD_OPTIONS})
   }
 }
 

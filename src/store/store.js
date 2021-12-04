@@ -7,7 +7,9 @@ import chaptersSaga from './chapters/saga'
 import mainReducer from './reducer';
 import chaptersReducer from './chapters/reducer';
 import chapterReducer from './chapter/reducer';
-import answerReducer from './answers/reducer'
+import answerReducer from './answers/reducer';
+import optionReducer from "./options/reducer"
+
 const sagaMiddleware = createSagaMiddleware()
 
 const store =  configureStore({
@@ -15,7 +17,8 @@ const store =  configureStore({
             global:mainReducer,
             chapters:chaptersReducer,
             chapter:chapterReducer,
-            answers:answerReducer
+            answers:answerReducer,
+            options: optionReducer,
       },
       middleware:[sagaMiddleware],
 })

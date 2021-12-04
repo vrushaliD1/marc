@@ -26,7 +26,6 @@ function UserLanding(props) {
     const metaMaskInit = async () => {
         const ethereum = window.ethereum;
         if (typeof ethereum !== 'undefined') {
-            console.log('MetaMask is installed!');
             let userAddress = ethereum.selectedAddress;
             setuserAddress(userAddress);
         } else {
@@ -40,7 +39,6 @@ function UserLanding(props) {
                 const contract = await new myWeb3.eth.Contract(abi, tokenContractAddress);
                 // const t = await contract.methods.setApprovalForAll(tokenContractAddress,true).call();
             } catch (err) {
-                console.log(err);
             }
         } else if (ethereum) {
             const accounts = await ethereum.request({ method: 'eth_requestAccounts' });

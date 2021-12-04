@@ -9,7 +9,8 @@ const reducer = createSlice({
         },
         setResponse:(state,action)=>{
             state.result = action.payload;
-        }
+        },
+        
     }
 })
 export const {setAnswers,setResponse} = reducer.actions;

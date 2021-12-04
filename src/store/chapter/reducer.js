@@ -15,7 +15,8 @@ const reducer = createSlice({
                     question.userResponse = value;
                 }
             })
-        }
+        },
+        
     }
 })
 export const {setChapter,saveUserResponse} = reducer.actions;

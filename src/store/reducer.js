@@ -10,7 +10,7 @@ const reducer = createSlice({
             };
         },
         setUser:(state,action)=>{
-            return {...state,user:action.payload}
+            return {...state, user: action.payload}
         },
     }
 })

@@ -5,10 +5,9 @@ import {setUser} from './reducer'
 
 function* fetchUser(action) {
     try{
-        // yield put(setIsLoading(true))
+      console.log("useraddress", action.payload)
         const response = yield call(getUser,action.payload);
         yield put(setUser(response.data.rows));
-        // yield put(setIsLoading(false))
     }catch(err){
       console.log(err);
     }

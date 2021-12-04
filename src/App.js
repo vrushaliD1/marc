@@ -22,7 +22,6 @@ function App() {
     (async () => {
       const ethereum = window.ethereum;
       if (typeof ethereum !== 'undefined') {
-        console.log('MetaMask is installed!');
         let userAddress = ethereum.selectedAddress;
         setuserAddress(userAddress);
       } else {

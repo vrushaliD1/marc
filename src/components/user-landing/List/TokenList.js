@@ -7,7 +7,6 @@ function TokenList(props) {
     const {chapters,global} = props;
     const {user,isloading} = global;
     useEffect(()=>{
-        console.log(isloading);
     },[isloading])
     const ar = Array(5).fill(0);
     return (

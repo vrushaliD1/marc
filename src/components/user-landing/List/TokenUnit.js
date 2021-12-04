@@ -56,7 +56,6 @@ function TokenUnit(props) {
             // fetchQuestion(id);
             history.push(`/game/${_id}`)
         }catch(err){
-            console.log(err);
             alert(err.message)
         }
     }
@@ -66,8 +65,8 @@ function TokenUnit(props) {
                 <a href={href}>{title}</a>
             </Grid.Column>
             <Grid.Column>{count}</Grid.Column>
-            <Grid.Column width={5} verticalAlign="middle" >{ <Progress color="blue" value={ parseFloat( progress*100).toPrecision(2)} total={100}  progress='percent' />}</Grid.Column>
-            <GridColumn>
+            <Grid.Column width={5} >{ <Progress color="blue" value={ parseFloat( progress*100).toPrecision(2)} total={100}  progress='percent' />}</Grid.Column>
+            <GridColumn >
                 {/* <Link to={`/game/${id}`} > */}
                     <Button disabled={canPlay()} primary size="mini" content="Play" onClick={handlePlay}>
                     </Button>

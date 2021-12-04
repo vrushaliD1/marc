@@ -12,7 +12,6 @@ function ThreedViewer() {
       var viewer = marmoset.embed("Room_2.mview", params);
       // const height  = container.current.getBoundingClientRect().height;
       // const width = container.current.getBoundingClientRect().width;
-      // console.log(height,width);
       // var viewer = new marmoset.WebViewer("Room_2.mview", params);
       marmoset.noUserInterface = true; //please be considerate
       container.current.appendChild(viewer.domRoot);
