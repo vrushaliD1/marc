@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import { connect } from 'react-redux'
 import { useHistory } from "react-router-dom";
 import { Button, Container, Grid, Header, Segment } from 'semantic-ui-react'
@@ -10,6 +10,11 @@ function AnserPage(props) {
     const handleClick= ()=>{
           history.push("/");
     }
+    useEffect(() => {
+      if (document.referrer.length == 0) {
+        history.push("/");
+      }
+    });
 
     return (
       <Container className="result" fluid>

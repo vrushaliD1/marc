@@ -6,11 +6,15 @@ import { LOAD_OPTIONS } from "../../store/options/constants";
 import Sidebar from '../sidebar/sidebar'
 import ThreedViewer from '../ThreedViewer/ThreedViewer'
 import { LOAD_USER } from '../../store/constants'
+import { useHistory } from "react-router-dom";
+
 function GameRoom(props) {
   const { match, fetchQuestion,fetchOption, global, fetchUser } = props;
   const { user, isloading } = global;
   const chapterId = match.params.id;
   const [userAddress, setuserAddress] = useState(null);
+  const history = useHistory();
+
   useEffect(() => {
     (async () => {
       await metaMaskInit();
@@ -25,6 +29,12 @@ function GameRoom(props) {
 
     }
   }, [userAddress])
+
+  useEffect(() =>{
+    if(document.referrer.length == 0){
+      history.push("/");
+    }
+  })
 
   const metaMaskInit = async () => {
     const ethereum = window.ethereum;

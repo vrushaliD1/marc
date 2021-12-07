@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { Button, Grid, GridColumn, Progress } from 'semantic-ui-react';
 import spacetime from 'spacetime';
 import Web3 from 'web3'
-import { abi, tokenContractAddress,client_token } from '../../Data';
+import { abi, tokenContractAddress,client_token, tokens } from '../../Data';
 
 function TokenUnit(props) {
     const { user,fetchQuestion,progress,lastAttempt,count} = props;
@@ -23,16 +23,20 @@ function TokenUnit(props) {
     },[now])
 
     const canPlay = ()=>{
+        let status = true
         if(lastAttempt && now){
             let dt = spacetime(lastAttempt,'utc');
             let nextAttempt = dt.add(12,'hour');
             if(now.isAfter(nextAttempt)){
-                return false;
+                status = false;
             }else{
-                return true;
+                status = true;
             }
         }
-        return false;   
+        if(title != tokens[0].title){
+            status = true
+        }
+        return status;   
     }
 
     const beforeCooldown = ()=>{
@@ -54,7 +58,11 @@ function TokenUnit(props) {
             // const result1 = await contract.methods.setApprovalForAll(tokenContractAddress,true).send({from:userAddress});
             // const result2 = await contract.methods.safeTransferFrom(userAddress,client_token,token,1,0).call();
             // fetchQuestion(id);
+            if(count>0){
             history.push(`/game/${_id}`)
+            } else{
+                window.open("https://opensea.io/collection/digitalcollectors")
+            }
         }catch(err){
             alert(err.message)
         }
@@ -67,10 +75,9 @@ function TokenUnit(props) {
             <Grid.Column>{count}</Grid.Column>
             <Grid.Column width={5} >{ <Progress color="blue" value={ parseFloat( progress*100).toPrecision(2)} total={100}  progress='percent' />}</Grid.Column>
             <GridColumn >
-                {/* <Link to={`/game/${id}`} > */}
-                    <Button disabled={canPlay()} primary size="mini" content="Play" onClick={handlePlay}>
+                    <Button disabled={canPlay()} primary size="mini" onClick={handlePlay}>
+                        {title != tokens[0].title? "Coming Soon" : (count>0? "Play" : "Buy") }
                     </Button>
-                {/* </Link> */}
             </GridColumn>
             <GridColumn width={4}>
                 {beforeCooldown()}
