@@ -23,7 +23,7 @@ function TokenUnit(props) {
     },[now])
 
     const canPlay = ()=>{
-        let status = true
+        let status = false
         if(lastAttempt && now){
             let dt = spacetime(lastAttempt,'utc');
             let nextAttempt = dt.add(12,'hour');
